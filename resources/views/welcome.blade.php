@@ -13,29 +13,38 @@
 
     <div class="container ">
         <h2>Presences</h2>
-
+        @if (session()->has('message'))
+        <div class="alert alert-success" role="alert">
+           {{ session('message') }}
+        </div>
+        @endif
         <form action="{{ route('add-presences') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="email">Emoloyee</label>
                 <input type="text" class="form-control" id="employee_id" placeholder="Enter Emoloyee id"
                     name="employee_id">
+                @error('employee_id')
+                <span class="invalid-feedback" style="color:red">{{ $message }}</span>
+                @enderror
             </div>
             <div class="form-group">
                 <div class="form-check">
-                    <input class="form-check-input" checked name="status" value="C/In" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    <input class="form-check-input" checked name="status" value="C/In" type="radio"
+                        name="flexRadioDefault" id="flexRadioDefault1">
                     <label class="form-check-label" for="flexRadioDefault1">
                         Come IN
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" name="status" value="C/Out" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                    <input class="form-check-input" name="status" value="C/Out" type="radio" name="flexRadioDefault"
+                        id="flexRadioDefault2">
                     <label class="form-check-label" for="flexRadioDefault2">
-                       Come Out
+                        Come Out
                     </label>
                 </div>
             </div>
-            <div class ="form-group">
+            <div class="form-group">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>

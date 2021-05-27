@@ -17,7 +17,7 @@ class CreatePresencesTable extends Migration
             $table->id();
             $table->bigInteger('employee_id');
             $table->tinyInteger('branch_id');
-            $table->string('status',5);
+            $table->string('status',5)->default('C/In');
             $table->string('image',100)->nullable();
             $table->timestamps();
         });
