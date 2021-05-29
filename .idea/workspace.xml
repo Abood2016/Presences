@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d86bffda-3bd4-4a8d-972a-c402d2c31652" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/presencesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/presencesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Presence.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Presence.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/index.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +137,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/assets/js" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/assets/css" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -145,8 +148,8 @@
       <recent name="C:\xampp\htdocs\Presences\public\assets" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\Presences\public\assets\js" />
       <recent name="C:\xampp\htdocs\Presences\public\assets\css" />
+      <recent name="C:\xampp\htdocs\Presences\public\assets\js" />
       <recent name="C:\xampp\htdocs\Presences\public\assets\images" />
     </key>
   </component>
@@ -165,7 +168,8 @@
       <option name="presentableId" value="Default" />
       <updated>1622118333491</updated>
       <workItem from="1622118334815" duration="4970000" />
-      <workItem from="1622234469621" duration="6513000" />
+      <workItem from="1622234469621" duration="7821000" />
+      <workItem from="1622278027084" duration="5632000" />
     </task>
     <servers />
   </component>
@@ -173,10 +177,18 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="517" y="288" key="NewPhpFileDialog" timestamp="1622118808907">
+    <state x="472" y="76" key="NewPhpClassDialog" timestamp="1622283605397">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="517" y="288" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" timestamp="1622118808907" />
+    <state x="472" y="76" key="NewPhpClassDialog/0.0.1366.738@0.0.1366.738" timestamp="1622283605397" />
+    <state x="517" y="288" key="NewPhpFileDialog" timestamp="1622283616191">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="517" y="288" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" timestamp="1622283616191" />
+    <state x="391" y="86" width="583" height="566" key="find.popup" timestamp="1622283493990">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="391" y="86" width="583" height="566" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1622283493990" />
     <state x="339" y="165" key="run.anything.popup" timestamp="1622240433413">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
