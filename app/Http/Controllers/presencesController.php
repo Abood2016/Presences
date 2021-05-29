@@ -10,22 +10,27 @@ class presencesController extends Controller
 {
     public function create()
     {
-        return view('welcome');
+        return view('index');
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'employee_id' => 'required',
-        ]);
+        $data = $request->input("image");
 
-        $presences = new Presence();
-        $presences->branch_id = '1';
-        $presences->employee_id = $request->input('employee_id');
-        $presences->status = $request->input('status');
-        $presences->save();
+        $image_64 = $data; //your base64 encoded data
 
-        Session::flash('message', ' Done');
-        return redirect()->back();
+        $extension = explode('/', explode(':', substr($image_64, 0, strpos($image_64, ';')))[1])[1];   // .jpg .png .pdf
+
+        $replace = substr($image_64, 0, strpos($image_64, ',')+1);
+
+// find substring fro replace here eg: data:image/png;base64,
+
+        $image = str_replace($replace, '', $image_64);
+
+        $image = str_replace(' ', '+', $image);
+
+        $imageName = \Str::random(10).'.'.$extension;
+
+        \Storage::disk('public')->put($imageName, base64_decode($image));
     }
 }

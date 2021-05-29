@@ -18,5 +18,5 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get( '/create-presences', [presencesController::class, 'create'])->name('create-presences');
+Route::get( '/presence', [presencesController::class, 'create'])->name('create-presences');
 Route::post('/add-presences' ,   [presencesController::class,'store'])->name('add-presences');
