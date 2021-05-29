@@ -1,0 +1,17 @@
+@font-face {
+    font-family: cairo;
+    src: url('../font/Cairo-Regular.ttf');
+}
+.clock {
+    color: #000000;
+    font-size: 2.5em;
+    font-family: cairo;
+    font-weight: 300;
+
+}
+.image{
+    height: 250px;
+    width: 250px;
+    border-radius: 30px;
+    margin-top: 2em;
+}

@@ -12,5 +12,7 @@ class Presence extends Model
 
     protected $guarded = [];
     protected $fillable=['employee_id','status','branch_id','image','created_at','updated_at'];
-
+    public function branch(){
+        return $this->belongsTo(Branch::class,'branch_id','id');
+    }
 }

@@ -8,24 +8,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}" >
     <link rel="stylesheet" href="{{asset('assets/css/sweetalert.css')}}" >
+    <link rel="stylesheet" href="{{asset('assets/css/index.css')}}" >
 
     <title>Presences System</title>
     <style>
 
-        .clock {
-            color: #000000;
-            font-size: 60px;
-            font-family: Arial;
-            letter-spacing: 7px;
-            font-weight: 300;
-
-        }
-        .image{
-            height: 250px;
-            width: 250px;
-            border-radius: 30px;
-            margin-top: 2em;
-        }
 
     </style>
 </head>
@@ -43,6 +30,11 @@
         <div class="row justify-content-center">
             <div id="MyClockDisplay" class="clock" onload="showTime()"></div>
 
+        </div>
+    </div>
+    <div class="container" style="margin-top: 1em">
+        <div class="row justify-content-center">
+            <div id="myDay" class="clock" onload="showDate()"></div>
         </div>
     </div>
 <div class="container mt-2">
@@ -73,6 +65,19 @@
                         <input class="form-check-input mr-1 mt-2" name="status" value="C/Out" type="radio" name="flexRadioDefault"
                                id="flexRadioDefault2">
                     </div>
+
+                    <div class="form-group col-sm-12 row">
+                        <label for="" class="col-sm-12 row" style="margin-right: 0.01em">
+                       <span class="mr-1">
+                          الفرع
+                       </span>
+                            <select name="branch_id" id="" class="form-control">
+                                @foreach($branches as $item)
+                                <option value="{{$item->id}}">{{$item->branch_name}}</option>
+                                @endforeach
+                            </select>
+                        </label>
+                    </div>
                     <div id="camera" style="display: none"></div>
                     <div id="result" style=""></div>
                     <div class="row w-100 justify-content-center">
@@ -85,10 +90,11 @@
             </form>
         </div>
         <div class="col-sm-6 mr-3 border table-box" style="overflow-y:scroll ;height:50vh!important;">
-            <table class="table " >
+            <table class="table table-striped" >
                 <thead>
                 <tr>
-                    <th class="text-right" scope="col">#الرقم الوظيفي</th>
+                    <th class="text-right" scope="col">#</th>
+                    <th class="text-right" scope="col">الرقم الوظيفي</th>
                     <th class="text-right" scope="col">الحالة</th>
                     <th class="text-right" scope="col">الوقت</th>
 
@@ -98,9 +104,12 @@
                 @foreach($presence as $row)
 
                 <tr>
+                    <th class="text-right" scope="row">{{$loop->iteration}}</th>
                     <th class="text-right" scope="row">{{$row->employee_id}}</th>
-                    <td class="text-right">{{$row->status}}</td>
-                    <td class="text-right">{{ $row->created_at->format('H:s:i') }}
+                    <td class="text-right"><span class="{{$row->status=="C/In"?"badge badge-success":"badge badge-primary"}}">
+                            {{$row->status=="C/In"?"تسجيل دخول":"تسجيل خروج"}}
+                        </span> </td>
+                    <td class="text-right">{{ $row->created_at->format('h:i') }}
                     </td>
 
                 </tr>
@@ -110,11 +119,7 @@
         </div>
     </div>
 </div>
-<div class="container">
-    <div class=" row col-sm-12 justify-content-center">
-        <div id="image" ></div>
-    </div>
-</div>
+
 </main>
 <script src="{{asset('assets/js/webcam.min.js')}}"></script>
 
@@ -164,7 +169,7 @@
                             confirmButtonText:"حسناً"
                         })
                     }
-                    else {
+                    else if (response.status ==200) {
 
                         Swal.fire({
                             icon: 'success',
@@ -175,13 +180,22 @@
                             showConfirmButton: false
                         })
 
-                        document.getElementById('image').innerHTML =
-                            '<img class="image" src="'+image+'"/>';
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'تم',
+                            timer: 2000,
+                            html: '<img class="image" src="'+image+'"/>',
+                            imageWidth: 400,
+                            imageHeight: 200,
+                            imageAlt: 'Custom image',
+                            showCancelButton: false,
+                            showConfirmButton: false
+                        })
 
                         setTimeout(function (){
                             $("#form_submit").trigger('reset');
                         $("#image").html('')
-                        },3000)
+                        },5000)
                         $.ajax({
                             url:"/presence",
                             method:'get',
@@ -207,6 +221,7 @@
 </script>
 <script>
     function showTime(){
+
         var date = new Date();
         var h = date.getHours(); // 0 - 23
         var m = date.getMinutes(); // 0 - 59
@@ -235,6 +250,30 @@
     }
 
     showTime();
+    function showDate(){
+    var days = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+        let now = new Date();
+
+
+
+        var full_date = new Date();
+        var y = full_date.getFullYear(); // 0 - 23
+        var m = full_date.getMonth(); // 0 - 59
+        var d = full_date.getDate(); // 0 - 59
+        var day = days[full_date.getDay()];
+
+
+
+
+        var time = day+y +"-" + m + "-" + d + " " ;
+
+        document.getElementById("myDay").innerText = time;
+        document.getElementById("myDay").textContent = time;
+
+        setTimeout(showTime, 1000);
+
+    }
+    showDate()
 </script>
 </body>
 </html>

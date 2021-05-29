@@ -20,3 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get( '/presence', [presencesController::class, 'create'])->name('create-presences');
 Route::post('/add-presences' ,   [presencesController::class,'store'])->name('add-presences');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
