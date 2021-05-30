@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 class presencesController extends Controller
 {
-   
+
 
     public function create(Request $request)
     {
@@ -25,16 +25,31 @@ class presencesController extends Controller
     public function store(Request $request)
     {
 
+        $rules = [
+            'employee_id' => 'required|min:9|max:9',
+            'status' => 'required',
+            'branch_id' => 'required',
+            'image' => 'required',
 
-       $validation =Validator::make($request->all(),[
-           'employee_id'=>'required|min:6',
-           'image'=>'required',
-           'status'=>'required',
-           'branch_id'=>'required'
-       ]);
-       if($validation->fails()){
-           return response()->json(['status'=>504,'error'=>'حدث خطأ في ادخال البيانات']);
-       }
+        ];
+        $messages = [
+            'employee_id.required' => 'الرقم الوظيفي مطلوب',
+            "employee_id.max"=>'الرقم الوظيفي غير صحيح الرجاءالتأكد من الرقم',
+            "employee_id.min"=>'الرقم الوظيفي غير صحيح الرجاءالتأكد من الرقم',
+            'status.required' => 'الحالة مطلوبة',
+            'required.required' => ' الفرع مطلوب',
+            'image.required'=>'تأكد من تشغيل الكاميرا على المتصفح'
+        ];
+
+        $validator = \Validator::make($request->all(),
+            $rules
+            ,
+            $messages
+        );
+        if($validator->fails()) {
+            return response()->json(['status' => false , 'data_validator' => $validator->messages() ]);
+        }
+
         $exist = Presence::where('employee_id',$request->input('employee_id'))->where('status',$request->input('status'))->whereDate('created_at', Carbon::today())->get()->count();
         if ($exist>0){
             return response()->json(['status'=>504,'error'=>'لقد بالتسجيل مسبقا']);

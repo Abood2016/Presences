@@ -11,10 +11,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/index.css')}}" >
 
     <title>Presences System</title>
-    <style>
 
-
-    </style>
 </head>
 <body>
 <!-- Image and text -->
@@ -120,6 +117,13 @@
     </div>
 </div>
 
+        <div class="container-box conatiner-fluid">
+            <div class="row justify-content-center" style="margin-top: 20%">
+
+                <div class="lds-dual-ring"></div>
+            </div>
+    </div>
+
 </main>
 <script src="{{asset('assets/js/webcam.min.js')}}"></script>
 
@@ -160,30 +164,32 @@
                 contentType: false,
                 cache: false,
                 processData: false,
-                success:function (response){
-                    if (response.status == 504){
+                success:function (data){
+                    if (data.status==false){
+                        var errorMessage = "";
+                        for (const error in data["data_validator"]) {
+                            if (data["data_validator"].hasOwnProperty(error)) {
+                                errorMessage += '<p>'+data["data_validator"][error]+'</p>';
+                            }
+                        }
                         Swal.fire({
-                            icon: 'error',
-                            title: 'خطأ',
-                            text: response.error,
-                            confirmButtonText:"حسناً"
-                        })
-                    }
-                    else if (response.status ==200) {
-
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'تم',
-                            text: response.success,
-                            timer: 2000,
+                            title: "",
+                            html: errorMessage,
+                            type: "error",
                             showCancelButton: false,
-                            showConfirmButton: false
-                        })
+                            confirmButtonText: 'موافق',
+                            closeOnConfirm: true,
+                            closeOnCancel: true
+                        });
+                    }
+                    else if (data.status ==200) {
+
+
 
                         Swal.fire({
                             icon: 'success',
                             title: 'تم',
-                            timer: 2000,
+                            timer: 3000,
                             html: '<img class="image" src="'+image+'"/>',
                             imageWidth: 400,
                             imageHeight: 200,
@@ -216,7 +222,10 @@
             }
         });
     })
+    setTimeout(function (){
+    $('.container-box').fadeOut();
 
+    },2000)
 
 </script>
 <script>
