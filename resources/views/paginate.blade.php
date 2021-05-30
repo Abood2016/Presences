@@ -17,7 +17,7 @@
             <td class="text-right"><span class="{{$row->status=="C/In"?"badge badge-success":"badge badge-primary"}}">
                             {{$row->status=="C/In"?"تسجيل دخول":"تسجيل خروج"}}
                         </span> </td>
-            <td class="text-right">{{ $row->created_at->format('H:i:s') }}
+            <td class="text-right">{{ $row->created_at->format('h:i') }}
             </td>
 
         </tr>
