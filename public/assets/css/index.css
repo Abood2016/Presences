@@ -6,6 +6,7 @@ body{
     overflow-x: hidden;
     background-image: url("../../image/beige-paper.png");
     font-family: cairo;
+
 }
 .clock {
     color: #000000;
