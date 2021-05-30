@@ -21,13 +21,13 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::get( '/presence', [presencesController::class, 'create'])->name('create-presences');
+Route::get( '/', [presencesController::class, 'create'])->name('create-presences');
 Route::post('/add-presences' ,   [presencesController::class,'store'])->name('add-presences');
 
 
 Route::get('/employee',   [EmployeeController::class, 'index'])->name('employee.index')->middleware('auth');
-Route::post( '/employee-store',   [EmployeeController::class, 'store'])->name('employee.store');
-Route::post('/branch-store',   [EmployeeController::class, 'storeBranchToUser'])->name('branch.store');
+Route::post( '/employee-store',   [EmployeeController::class, 'store'])->name('employee.store')->middleware('auth');
+Route::post('/branch-store',   [EmployeeController::class, 'storeBranchToUser'])->name('branch.store')->middleware('auth');
 
 
 Route::get('/login',   [LoginController::class, 'index'])->name('login');
