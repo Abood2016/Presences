@@ -34,7 +34,7 @@
             <div id="myDay" class="clock" onload="showDate()"></div>
         </div>
     </div>
-<div class="container mt-2">
+<div class="container mt-3">
     <div class="row justify-content-around">
         <div class="col-sm-5 row mr-3 ml-1 border" style="">
             <form action="" class="col-sm-12 row mt-3" id="form_submit" enctype="multipart/form-data">
@@ -42,7 +42,7 @@
                 <div class="form-group col-sm-12 row">
                     <label for="" class="col-sm-12 row" style="margin-right: 0.01em">
                        <span class="mr-1">
-                           الرقم الوظيفي
+                           الرقم الوظيفي :
                        </span>
                         <input name="employee_id"  class="form-control col-sm-12 mt-2" type="text" placeholder="ادخل الرقم الوظيفي">
                     </label>
@@ -63,26 +63,28 @@
                                id="flexRadioDefault2">
                     </div>
 
-                    <div class="form-group col-sm-12 row">
-                        <label for="" class="col-sm-12 row" style="margin-right: 0.01em">
-                       <span class="mr-1">
-                          الفرع
-                       </span>
-                            <select name="branch_id" id="" class="form-control">
-                                @foreach($branches as $item)
-                                <option value="{{$item->id}}">{{$item->branch_name}}</option>
-                                @endforeach
-                            </select>
-                        </label>
-                    </div>
+
                     <div id="camera" style="display: none"></div>
                     <div id="result" style=""></div>
-                    <div class="row w-100 justify-content-center">
-                        <div>
-                        <button type="button" class="btn btn-primary btn_submit">تسجيل</button>
-                        </div>
-                    </div>
 
+
+                </div>
+                <div class="form-group col-sm-12 row">
+                    <label for="" class="col-sm-12 row" style="margin-right: 0.01em">
+                       <span class="mr-1">
+                          الفرع :
+                       </span>
+                        <select name="branch_id" id="" class="form-control">
+                            @foreach($branches as $item)
+                                <option value="{{$item->id}}">{{$item->branchName}}</option>
+                            @endforeach
+                        </select>
+                    </label>
+                </div>
+                <div class="row w-100 justify-content-center">
+                    <div>
+                        <button type="button" class="btn btn-primary btn_submit">تسجيل</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -211,6 +213,18 @@
                             $('.table-box').html(response)
                             }
                         })
+                    }
+                    else if(data.status ==504){
+                        Swal.fire({
+                            title: "خطأ",
+                            icon:'error',
+                            text: data.error,
+                            type: "error",
+                            showCancelButton: false,
+                            confirmButtonText: 'موافق',
+                            closeOnConfirm: true,
+                            closeOnCancel: true
+                        });
                     }
                 }
             })

@@ -4,10 +4,12 @@
 }
 body{
     overflow-x: hidden;
+    background-image: url("../../image/beige-paper.png");
+    font-family: cairo;
 }
 .clock {
     color: #000000;
-    font-size: 2.5em;
+    font-size: 2em;
     font-family: cairo;
     font-weight: 300;
 
@@ -42,6 +44,13 @@ body{
     border: 6px solid #fff;
     border-color: #fff transparent #fff transparent;
     animation: lds-dual-ring 1.2s linear infinite;
+}
+.border{
+    border: 1px solid #BDBDBD!important;
+    border-radius: 10px!important;
+}
+body{
+
 }
 @keyframes lds-dual-ring {
     0% {
