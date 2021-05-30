@@ -33,22 +33,23 @@
         <div class="container mt-4">
             <form action="" id="branch_form_submit">
                 @csrf
-                <div class="form-group col-sm-8 row ">
-                    <label for="" class="col-sm-12 row" style="margin-right: 0.01em">
-                        <span class="mr-1">
-                            الفرع :
-                        </span>
-                        <select name="branch_id" id="" class="form-control">
+                <div class="form-group col-sm-8 row">
+                    <label for="" class=" d-flex flex-row col-sm-12" style="margin-right: 0.01em">
+                        <p class="mr-1 col-sm-1 pl-3 text-right">
+                            الفرع:
+                        </p>
+                        <select name="branch_id" id="" class="col-sm-6  form-control mr-2">
+                                <option selected disabled >اختيار الفرع</option>
                             @foreach($branches as $item)
-                            <option value="{{$item->id}}">{{$item->branchName}}</option>
+
+                            <option {{auth()->user()->branch_id== $item->id?"selected":""}} value="{{$item->id}}">{{$item->branchName}}</option>
                             @endforeach
                         </select>
-                    </label>
-                    <div class="row w-100 justify-content-center">
-                        <div>
+                        <div class="col-sm-2 text-right">
                             <button type="button" class="btn btn-primary branch_btn_submit">أختيار</button>
                         </div>
-                    </div>
+                    </label>
+
                 </div>
             </form>
             <div class="row justify-content-around">
@@ -217,7 +218,7 @@
 
                         setTimeout(function (){
                             $("#branch_form_submit").trigger('reset');
-                            },5000)
+                            },1000)
                     }
                 }
             });

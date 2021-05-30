@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
@@ -77,7 +78,7 @@
                        </span>
                         <select name="branch_id" id="" class="form-control">
                             @foreach($branches as $item)
-                                <option value="{{$item->id}}">{{$item->branchName}}</option>
+                                <option {{$user_id== $item->id?"selected":""}} value="{{$item->id}}">{{$item->branchName}}</option>
                             @endforeach
                         </select>
                     </label>

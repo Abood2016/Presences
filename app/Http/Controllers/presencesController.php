@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Branch;
+use App\Models\Employee;
 use App\Models\Presence;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -19,14 +21,15 @@ class presencesController extends Controller
         if ($request->ajax()){
             return view('paginate',compact('presence','branches'))->render();
         }
-        return view('index',compact('presence','branches'));
+        $user_id = User::first()->branch_id;
+        return view('index',compact('presence','branches','user_id'));
     }
 
     public function store(Request $request)
     {
 
         $rules = [
-            'employee_id' => 'required|min:9|max:9',
+            'employee_id' => 'required|min:9',
             'status' => 'required',
             'branch_id' => 'required',
             'image' => 'required',
@@ -34,7 +37,7 @@ class presencesController extends Controller
         ];
         $messages = [
             'employee_id.required' => 'الرقم الوظيفي مطلوب',
-            "employee_id.max"=>'الرقم الوظيفي غير صحيح الرجاءالتأكد من الرقم',
+
             "employee_id.min"=>'الرقم الوظيفي غير صحيح الرجاءالتأكد من الرقم',
             'status.required' => 'الحالة مطلوبة',
             'required.required' => ' الفرع مطلوب',
@@ -49,9 +52,14 @@ class presencesController extends Controller
         if($validator->fails()) {
             return response()->json(['status' => false , 'data_validator' => $validator->messages() ]);
         }
+        $exist = Employee::where('EMP_ID',$request->input('employee_id'))->get();
 
-        $exist = Presence::where('employee_id',$request->input('employee_id'))->where('status',$request->input('status'))->whereDate('created_at', Carbon::today())->get()->count();
-        if ($exist>0){
+        if ($exist->isEmpty()){
+            return response()->json(['status'=>504,'error'=>'الرقم الوظيفي غير مسجل لدينا']);
+        }
+
+        $duplicate = Presence::where('employee_id',$request->input('employee_id'))->where('status',$request->input('status'))->whereDate('created_at', Carbon::today())->get()->count();
+        if ($duplicate>0){
             return response()->json(['status'=>504,'error'=>'لقد بالتسجيل مسبقا']);
 
         }
