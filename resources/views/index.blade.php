@@ -20,6 +20,7 @@
     <a class="navbar-brand" href="{{url('/')}}">
         <img src="{{asset('assets/images/logo.jpeg')}}" width="150" height="50" class="d-inline-block align-top" alt="">
     </a>
+    <li></li>
 </nav>
 </header>
 <main>
