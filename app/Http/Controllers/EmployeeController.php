@@ -6,6 +6,7 @@ use App\Models\Branch;
 use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class EmployeeController extends Controller
@@ -53,7 +54,7 @@ class EmployeeController extends Controller
             return response()->json(['status' => 504, 'error' => 'حدث خطأ في ادخال البيانات']);
         }
 
-        $user = new User();
+        $user = User::first();
         $user->branch_id = $request->input('branch_id');
         $user->update();
         return response()->json(['status' => 200, 'success' => 'تمت العملية بنجاح']);
