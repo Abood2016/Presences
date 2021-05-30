@@ -258,14 +258,14 @@
 
         var full_date = new Date();
         var y = full_date.getFullYear(); // 0 - 23
-        var m = full_date.getMonth(); // 0 - 59
+        var m = full_date.getMonth()+1; // 0 - 59
         var d = full_date.getDate(); // 0 - 59
         var day = days[full_date.getDay()];
 
 
 
 
-        var time = day+y +"-" + m + "-" + d + " " ;
+        var time = day+ " " + y +"-" + m + "-" + d + " " ;
 
         document.getElementById("myDay").innerText = time;
         document.getElementById("myDay").textContent = time;
