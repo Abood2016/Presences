@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use function PHPUnit\Framework\isNull;
 
 class presencesController extends Controller
 {
@@ -71,6 +72,9 @@ class presencesController extends Controller
             $hourNow= Carbon::now()->format('H');
             $test_status = Presence::where('employee_id',$request->input('employee_id'))->where('status',"C/In")->whereDate('created_at', Carbon::today())->first();
 
+            if (is_null($test_status)){
+                return response()->json(['status'=>504,'error'=>'لم يتم تسجيل الدخول مسبقا']);
+            }
             $come_in =  $test_status->created_at->format('H');;
 
         if ( ($hourNow-$come_in ) <6){
