@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+
 class presencesController extends Controller
 {
 
@@ -44,7 +46,7 @@ class presencesController extends Controller
             'image.required'=>'تأكد من تشغيل الكاميرا على المتصفح'
         ];
 
-        $validator = \Validator::make($request->all(),
+        $validator = Validator::make($request->all(),
             $rules
             ,
             $messages
@@ -71,14 +73,14 @@ class presencesController extends Controller
 
         $replace = substr($image_64, 0, strpos($image_64, ',')+1);
 
-// find substring fro replace here eg: data:image/png;base64,
+        // find substring fro replace here eg: data:image/png;base64,
 
         $image = str_replace($replace, '', $image_64);
 
         $image = str_replace(' ', '+', $image);
 
         $imageName = time().'.'.$extension;
-        \Storage::disk('public')->put($imageName, base64_decode($image));
+        Storage::disk('public')->put($imageName, base64_decode($image));
         $presence = new Presence();
         $presence->employee_id = $request->input('employee_id');
         $presence->status = $request->input('status');

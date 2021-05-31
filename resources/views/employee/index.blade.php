@@ -26,6 +26,11 @@
                 <img src="{{asset('assets/images/logo.jpeg')}}" width="150" height="50" class="d-inline-block align-top"
                     alt="">
             </a>
+            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-sm btn-danger"><i class="fa fa-logout"></i>سجل خروج
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </a>
         </nav>
     </header>
     <main class="mt-4">

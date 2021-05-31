@@ -32,4 +32,5 @@ Route::post('/branch-store',   [EmployeeController::class, 'storeBranchToUser'])
 
 Route::get('/login',   [LoginController::class, 'index'])->name('login');
 Route::post('/login-store',   [LoginController::class, 'login'])->name('login.store');
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 

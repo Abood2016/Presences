@@ -34,4 +34,10 @@ class LoginController extends Controller
         }
         return redirect('/employee');
     }
+
+    public function logout()
+    {
+        auth()->logout();
+        return redirect('/login')->with('success', 'You have been logged out');
+    }
 }
