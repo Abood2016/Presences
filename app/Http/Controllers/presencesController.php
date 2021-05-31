@@ -30,6 +30,8 @@ class presencesController extends Controller
     public function store(Request $request)
     {
 
+
+
         $rules = [
             'employee_id' => 'required|min:9',
             'status' => 'required',
@@ -60,10 +62,21 @@ class presencesController extends Controller
             return response()->json(['status'=>504,'error'=>'الرقم الوظيفي غير مسجل لدينا']);
         }
 
-        $duplicate = Presence::where('employee_id',$request->input('employee_id'))->where('status',$request->input('status'))->whereDate('created_at', Carbon::today())->get()->count();
-        if ($duplicate>0){
+        $duplicate = Presence::where('employee_id',$request->input('employee_id'))->where('status',$request->input('status'))->whereDate('created_at', Carbon::today())->get();
+          $count = $duplicate->count();
+        if ($count>0){
             return response()->json(['status'=>504,'error'=>'لقد بالتسجيل مسبقا']);
+        }
+        if ($request->input('status') =="C/Out"){
+            $hourNow= Carbon::now()->format('H');
+            $test_status = Presence::where('employee_id',$request->input('employee_id'))->where('status',"C/In")->whereDate('created_at', Carbon::today())->first();
 
+            $come_in =  $test_status->created_at->format('H');;
+
+        if ( ($hourNow-$come_in ) <6){
+
+            return response()->json(['status'=>504,'error'=>'لم تتجاوز عدد ساعات الدوام']);
+        }
         }
        $data = $request->input("image");
 
