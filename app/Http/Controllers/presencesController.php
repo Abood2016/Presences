@@ -20,7 +20,7 @@ class presencesController extends Controller
     public function create(Request $request)
     {
         $branches = Branch::all();
-        $presence = Presence::OrderBy("id", 'desc')->limit(20)->get();
+        $presence = Presence::whereDate('created_at', Carbon::today())->OrderBy("id", 'desc')->limit(20)->get();
         if ($request->ajax()) {
             return view('paginate', compact('presence', 'branches'))->render();
         }
@@ -64,7 +64,7 @@ class presencesController extends Controller
             }
             $come_in =  $test_status->created_at->format('H');;
 
-            if (($hourNow - $come_in) < 6) {
+            if (($hourNow - $come_in) < 5) {
 
                 return response()->json(['status' => 504, 'error' => 'لم تتجاوز عدد ساعات الدوام']);
             }
