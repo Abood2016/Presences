@@ -24,9 +24,17 @@
         <nav class="navbar navbar-light" style="background-color: black;">
             <a class="navbar-brand" href="{{url('/')}}">
                 <img src="{{asset('assets/images/logo.jpeg')}}" width="150" height="50" class="d-inline-block align-top"
-                    alt="">
+                     alt="">
             </a>
-            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-sm btn-danger"><i class="fa fa-logout"></i>سجل خروج
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link text-white font-weight-bold" href="{{route('presences.index')}}">سجل الحضور <span class="sr-only">(current)</span></a>
+                </li>
+
+            </ul>
+            <a href="{{ route('logout') }}"
+               onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+               class="btn btn-sm btn-danger"><i class="fa fa-logout"></i>سجل خروج
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>

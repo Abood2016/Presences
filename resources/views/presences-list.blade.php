@@ -26,6 +26,12 @@
                 <img src="{{asset('assets/images/logo.jpeg')}}" width="150" height="50" class="d-inline-block align-top"
                     alt="">
             </a>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link text-white font-weight-bold" href="{{route('employee.index')}}">اضافة موظف <span class="sr-only">(current)</span></a>
+                    </li>
+
+                </ul>
             <a href="{{ route('logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                 class="btn btn-sm btn-danger"><i class="fa fa-logout"></i>سجل خروج
@@ -40,7 +46,7 @@
         <div class="container mt-4">
 
             <div class="row justify-content-around">
-                <div class="col-sm-6 mr-3 border table-box" style="overflow-y:scroll ;height:50vh!important;">
+                <div class="col-sm-12 mr-3 border table-box" >
                     <table class="table table-striped" id="emp_table">
                         <thead>
                             <tr>
@@ -61,7 +67,7 @@
                                 <th class="text-right" scope="row">{{$row->status}}</th>
                                 <td class="text-right">{{ $row->created_at->format('y-m-d') }}
                                 <td class="text-right">
-                                    <a href="{{asset('storage/') .$row->image}}"
+                                    <a href="{{asset('storage/').'/' .$row->image}}"
                                         target="_blank"><img width="130px" style="border-radius: 30px"
                                             src="{{ asset('storage/' . $row->image) }}">
                                 </td>
@@ -90,7 +96,7 @@
             var form_id = document.getElementById('form_submit');
             var form_data = new FormData(form_id);
 
-            
+
         })
     });
 

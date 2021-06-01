@@ -30,7 +30,7 @@ Route::group(['prefix' => 'dashboard'], function () {
 Route::get('/employee',   [EmployeeController::class, 'index'])->name('employee.index')->middleware('auth');
 Route::post( '/employee-store',   [EmployeeController::class, 'store'])->name('employee.store')->middleware('auth');
 Route::post('/branch-store',   [EmployeeController::class, 'storeBranchToUser'])->name('branch.store')->middleware('auth');
-Route::get('/presences-list',   [presencesController::class, 'presencesList'])->name('presences.index')->middleware('auth');
+Route::get('/',   [presencesController::class, 'presencesList'])->name('presences.index')->middleware('auth');
 
 });
 
