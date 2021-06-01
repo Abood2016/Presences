@@ -31,6 +31,7 @@ class presencesController extends Controller
     public function store(Request $request)
     {
 
+
         $validator = Validator::make(
             $request->all(),
             $this->rules(),
@@ -46,15 +47,16 @@ class presencesController extends Controller
             return response()->json(['status' => 504, 'error' => 'الرقم الوظيفي غير مسجل لدينا']);
         }
 
-        //to check if employee already registerd 
+        //to check if employee already registerd
         $duplicate = Presence::where('employee_id', $request->input('employee_id'))->where('status', $request->input('status'))->whereDate('created_at', Carbon::today())->get();
         $count = $duplicate->count();
-        
+
         if ($count > 0) {
-            return response()->json(['status' => 504, 'error' => 'لقد بالتسجيل مسبقا']);
+            return response()->json(['status' => 504, 'error' => 'لقد قمت بالتسجيل مسبقا']);
         }
 
         //to check if employee still in work yet
+
         if ($request->input('status') == "C/Out") {
             $hourNow = Carbon::now()->format('H');
             $test_status = Presence::where('employee_id', $request->input('employee_id'))->where('status', "C/In")->whereDate('created_at', Carbon::today())->first();
@@ -63,11 +65,18 @@ class presencesController extends Controller
                 return response()->json(['status'=>504,'error'=>'لم يتم تسجيل الدخول مسبقا']);
             }
             $come_in =  $test_status->created_at->format('H');;
+            if ($request->input('comming_out')){
 
-            if (($hourNow - $come_in) < 5) {
-
-                return response()->json(['status' => 504, 'error' => 'لم تتجاوز عدد ساعات الدوام']);
             }
+            else if (($hourNow - $come_in) < 5) {
+
+
+                    return response()->json(['status' => 505, 'error' => 'لم تتجاوز عدد ساعات الدوام','message'=>'هل انت متأكد؟']);
+
+
+            }
+
+
         }
 
         $data = $request->input("image");
