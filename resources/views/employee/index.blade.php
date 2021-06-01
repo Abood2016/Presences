@@ -220,10 +220,6 @@
                             showConfirmButton: false
                         })
 
-
-                        setTimeout(function (){
-                            $("#branch_form_submit").trigger('reset');
-                            },1000)
                     }
                 }
             });

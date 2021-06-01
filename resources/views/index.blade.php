@@ -21,7 +21,7 @@
     <a class="navbar-brand" href="{{url('/')}}">
         <img src="{{asset('assets/images/logo.jpeg')}}" width="150" height="50" class="d-inline-block align-top" alt="">
     </a>
-     
+
 </nav>
 </header>
 <main>
@@ -227,6 +227,81 @@
                             closeOnConfirm: true,
                             closeOnCancel: true
                         });
+                    }
+                    else if (data.status ==505){
+                        Swal.fire({
+                            title:data.message,
+                            text: data.error,
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'نعم!',
+                            cancelButtonText:'الغاء'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                              form_data.append('comming_out',true)
+                              form_data.append('_token','{{csrf_token()}}')
+                                $.ajax({
+                                    url:"/add-presences",
+                                    method:"post",
+                                    data:form_data,
+                                    contentType: false,
+                                    cache: false,
+                                    processData: false,
+                                    success:function (data){
+                                        if (data.status==false){
+                                            var errorMessage = "";
+                                            for (const error in data["data_validator"]) {
+                                                if (data["data_validator"].hasOwnProperty(error)) {
+                                                    errorMessage += '<p>'+data["data_validator"][error]+'</p>';
+                                                }
+                                            }
+                                            Swal.fire({
+                                                title: "",
+                                                html: errorMessage,
+                                                type: "error",
+                                                showCancelButton: false,
+                                                confirmButtonText: 'موافق',
+                                                closeOnConfirm: true,
+                                                closeOnCancel: true
+                                            });
+                                        }
+                                        else if (data.status ==200) {
+
+
+
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: 'تم',
+                                                timer: 3000,
+                                                html: '<img class="image" src="'+image+'"/>',
+                                                imageWidth: 400,
+                                                imageHeight: 200,
+                                                imageAlt: 'Custom image',
+                                                showCancelButton: false,
+                                                showConfirmButton: false
+                                            })
+
+                                            setTimeout(function (){
+                                                $("#form_submit").trigger('reset');
+                                                $("#image").html('')
+                                            },5000)
+                                            $.ajax({
+                                                url:"/",
+                                                method:'get',
+                                                data:{"_token":'{{csrf_token()}}'},
+                                                success:function (response){
+                                                    $('.table-box').html="";
+                                                    $('.table-box').html(response)
+                                                }
+                                            })
+                                        }
+
+                                    }
+                                })
+                            }
+                        })
                     }
                 }
             })
