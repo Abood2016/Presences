@@ -144,7 +144,7 @@
             var form_data = new FormData(form_id);
 
             $.ajax({
-                url:"/employee-store",
+                url:"/dashboard/employee-store",
                 method:"post",
                 data:form_data,
                 contentType: false,
@@ -175,7 +175,7 @@
                             $("#form_submit").trigger('reset');
                             },5000)
                         $.ajax({
-                            url:"/employee",
+                            url:"/dashboard/employee",
                             method:'get',
                             data:{"_token":'{{csrf_token()}}'},
                             success:function (response){
@@ -202,7 +202,7 @@
             var form_data = new FormData(form_id);
 
             $.ajax({
-                url:"/branch-store",
+                url:"/dashboard/branch-store",
                 method:"post",
                 data:form_data,
                 contentType: false,

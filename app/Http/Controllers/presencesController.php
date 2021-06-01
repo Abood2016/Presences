@@ -123,9 +123,13 @@ class presencesController extends Controller
         ];
     }
 
-    public function presencesList()
+    public function presencesList(Request $request)
     {
-        $presences = Presence::OrderBy('id','desc')->paginate(10);
-        return view('presences-list',compact('presences'));
+        $presences = Presence::OrderBy('id','desc')->where([]);
+        if ($request->has('employee_id'))
+        $presences = $presences->where('employee_id', 'like', '%' . $request->input('employee_id') . '%');
+
+        $data['presences'] = $presences->paginate(10);
+        return view('presences-list', $data);
     }
 }

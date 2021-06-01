@@ -32,7 +32,7 @@ class LoginController extends Controller
                 'message' => 'خطأ في أسم المستخدم أو كلمة المرور'
             ]);
         }
-        return redirect('/employee');
+        return redirect('/dashboard');
     }
 
     public function logout()
