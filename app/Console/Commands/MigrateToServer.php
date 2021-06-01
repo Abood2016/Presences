@@ -43,5 +43,7 @@ class MigrateToServer extends Command
             $row->migrated =1;
             $row->update();
         }
+        $this->info('Successfully');
+
     }
 }

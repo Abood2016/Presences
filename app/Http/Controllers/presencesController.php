@@ -31,11 +31,7 @@ class presencesController extends Controller
     public function store(Request $request)
     {
 
-        $validator = Validator::make(
-            $request->all(),
-            $this->rules(),
-            $this->messages()
-        );
+        $validator = Validator::make($request->all(),$this->rules(),$this->messages());
 
         if ($validator->fails()) {
             return response()->json(['status' => false, 'data_validator' => $validator->messages()]);
@@ -112,5 +108,11 @@ class presencesController extends Controller
             'image' => 'required',
 
         ];
+    }
+
+    public function presencesList()
+    {
+        $presences = Presence::OrderBy('id','desc')->paginate(10);
+        return view('presences-list',compact('presences'));
     }
 }

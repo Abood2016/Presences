@@ -25,10 +25,14 @@ Route::get( '/', [presencesController::class, 'create'])->name('create-presences
 Route::post('/add-presences' ,   [presencesController::class,'store'])->name('add-presences');
 
 
+Route::group(['prefix' => 'dashboard'], function () {
+
 Route::get('/employee',   [EmployeeController::class, 'index'])->name('employee.index')->middleware('auth');
 Route::post( '/employee-store',   [EmployeeController::class, 'store'])->name('employee.store')->middleware('auth');
 Route::post('/branch-store',   [EmployeeController::class, 'storeBranchToUser'])->name('branch.store')->middleware('auth');
+Route::get('/presences-list',   [presencesController::class, 'presencesList'])->name('presences.index')->middleware('auth');
 
+});
 
 Route::get('/login',   [LoginController::class, 'index'])->name('login');
 Route::post('/login-store',   [LoginController::class, 'login'])->name('login.store');
