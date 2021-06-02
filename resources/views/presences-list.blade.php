@@ -65,7 +65,7 @@
                                 <th class="text-right" scope="row">{{$loop->iteration}}</th>
                                 <th class="text-right" scope="row">{{$row->employee_id}}</th>
                                 <th class="text-right" scope="row">{{$row->status}}</th>
-                                <td class="text-right">{{ $row->created_at->format('y-m-d') }}
+                                <td class="text-right">{{ $row->created_at->format('y-m-d') }}</td>
                                 <td class="text-right">
                                     <a href="{{asset('storage/').'/' .$row->image}}"
                                         target="_blank"><img width="130px" style="border-radius: 30px"
