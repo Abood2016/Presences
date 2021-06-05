@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d86bffda-3bd4-4a8d-972a-c402d2c31652" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/presences-list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/presences-list.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,7 +144,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../dashboard" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -185,7 +184,7 @@
       <workItem from="1622537033991" duration="925000" />
       <workItem from="1622537973601" duration="828000" />
       <workItem from="1622548163916" duration="3973000" />
-      <workItem from="1622624078958" duration="423000" />
+      <workItem from="1622624078958" duration="1035000" />
     </task>
     <servers />
   </component>
@@ -193,10 +192,10 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="463" y="124" key="FileChooserDialogImpl" timestamp="1622538808655">
+    <state x="463" y="124" key="FileChooserDialogImpl" timestamp="1622625122694">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="463" y="124" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1622538808655" />
+    <state x="463" y="124" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1622625122694" />
     <state x="472" y="76" key="NewPhpClassDialog" timestamp="1622283605397">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
