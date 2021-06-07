@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="cddb1a03-f9b6-4658-a4ab-0e3282638f1f" name="stack" url="http://ftp.stackcp.com">
+        <fileTransfer rootFolder="/public_html/company" host="ftp.stackcp.com" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

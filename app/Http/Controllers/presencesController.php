@@ -18,29 +18,39 @@ class presencesController extends Controller
 
     public function create(Request $request)
     {
-        $branches = Branch::all();
-        $presence = Presence::whereDate('created_at', Carbon::today())->OrderBy("id", 'desc')->limit(20)->get();
-        if ($request->ajax()) {
-            return view('paginate', compact('presence', 'branches'))->render();
+        $mac = exec('getmac');
+        $substr_mac = substr($mac,0,17);
+
+        $branch = Branch::where('mac_address',$substr_mac)->first();
+
+        $branch_id =null;
+        if (!is_null($branch)){
+        $branch_id = $branch->id;
         }
-        $user_id = User::first()->branch_id;
-        return view('index', compact('presence', 'branches', 'user_id'));
+        $presence = Presence::whereDate('created_at', Carbon::today())->OrderBy("id", 'desc')
+            ->whereIn('branch_id',[$branch_id])->limit(20)->get();
+
+        if ($request->ajax()) {
+            return view('paginate', compact('presence','branch_id'))->render();
+        }
+
+        return view('index', compact('presence', 'branch_id'));
     }
 
     public function store(Request $request)
     {
-
-        $validator = Validator::make($request->all(),$this->rules(),$this->messages());
+       $mac = exec('getmac');
+        $substr_mac = substr($mac,0,17);
 
         $validator = Validator::make(
-            $request->all(),
+            array_merge($request->all(), ['mac_address' => $substr_mac]),
             $this->rules(),
             $this->messages()
         );
-
         if ($validator->fails()) {
             return response()->json(['status' => false, 'data_validator' => $validator->messages()]);
         }
+
         $exist = Employee::where('EMP_ID', $request->input('employee_id'))->get();
 
         if ($exist->isEmpty()) {
@@ -96,8 +106,9 @@ class presencesController extends Controller
         $presence->image = $imageName;
         $presence->branch_id = $request->input('branch_id');
         $presence->created_at = Carbon::now()->setTimezone('Asia/Gaza');
+
         $presence->save();
-        return response()->json(['status' => 200, 'success' => 'حبيتك تنسيت النوم']);
+        return response()->json(['status' => 200, 'success' => 'تمت العملية']);
     }
 
     public function messages()
@@ -108,7 +119,8 @@ class presencesController extends Controller
             "employee_id.min" => 'الرقم الوظيفي غير صحيح الرجاءالتأكد من الرقم',
             'status.required' => 'الحالة مطلوبة',
             'required.required' => ' الفرع مطلوب',
-            'image.required' => 'تأكد من تشغيل الكاميرا على المتصفح'
+            'image.required' => 'تأكد من تشغيل الكاميرا على المتصفح',
+            'mac_address.exists'=> 'الجهاز غير مسجل لدينا'
         ];
     }
 
@@ -119,7 +131,7 @@ class presencesController extends Controller
             'status' => 'required',
             'branch_id' => 'required',
             'image' => 'required',
-
+            'mac_address'=>'exists:branch'
         ];
     }
 

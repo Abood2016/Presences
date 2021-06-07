@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d86bffda-3bd4-4a8d-972a-c402d2c31652" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/presencesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/presencesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/index.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +146,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../dashboard" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -185,6 +187,9 @@
       <workItem from="1622537973601" duration="828000" />
       <workItem from="1622548163916" duration="3973000" />
       <workItem from="1622624078958" duration="1035000" />
+      <workItem from="1622968459863" duration="611000" />
+      <workItem from="1622969236736" duration="1292000" />
+      <workItem from="1623055039507" duration="7632000" />
     </task>
     <servers />
   </component>
@@ -192,10 +197,18 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="463" y="124" key="FileChooserDialogImpl" timestamp="1622625122694">
+    <state x="275" y="27" key="#Deployment" timestamp="1622969860028">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="463" y="124" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1622625122694" />
+    <state x="275" y="27" key="#Deployment/0.0.1366.738@0.0.1366.738" timestamp="1622969860028" />
+    <state x="357" y="29" key="#Options" timestamp="1622969902698">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="357" y="29" key="#Options/0.0.1366.738@0.0.1366.738" timestamp="1622969902698" />
+    <state x="463" y="124" key="FileChooserDialogImpl" timestamp="1622969232990">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="463" y="124" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1622969232990" />
     <state x="472" y="76" key="NewPhpClassDialog" timestamp="1622283605397">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -208,6 +221,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="391" y="86" width="583" height="566" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1622283493990" />
+    <state x="516" y="19" width="513" height="699" key="ftp.server.browser" timestamp="1622969853147">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="516" y="19" width="513" height="699" key="ftp.server.browser/0.0.1366.738@0.0.1366.738" timestamp="1622969853147" />
     <state x="339" y="165" key="run.anything.popup" timestamp="1622240433413">
       <screen x="0" y="0" width="1366" height="738" />
     </state>

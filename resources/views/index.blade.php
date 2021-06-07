@@ -74,19 +74,7 @@
 
 
                         </div>
-                        <div class="form-group col-sm-12 row">
-                            <label for="" class="col-sm-12 row" style="margin-right: 0.01em">
-                                <span class="mr-1">
-                                    الفرع :
-                                </span>
-                                <select name="branch_id" id="" class="form-control">
-                                    @foreach($branches as $item)
-                                    <option {{$user_id== $item->id?"selected":""}} value="{{$item->id}}">
-                                        {{$item->branchName}}</option>
-                                    @endforeach
-                                </select>
-                            </label>
-                        </div>
+                        <input style="display: none" type="text" value="{{$branch_id}}" name="branch_id">
                         <div class="row w-100 justify-content-center">
                             <div>
                                 <button type="button" class="btn btn-primary btn_submit">تسجيل</button>
