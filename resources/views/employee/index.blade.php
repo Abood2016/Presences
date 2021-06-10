@@ -12,10 +12,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/index.css')}}">
 
     <title>تــسـجـيـل مـوظـف جـديـد</title>
-    <style>
 
-
-    </style>
 </head>
 
 <body>
@@ -55,7 +52,7 @@
                                 <option selected disabled >اختيار الفرع</option>
                             @foreach($branches as $item)
 
-                            <option {{auth()->user()->branch_id== $item->id?"selected":""}} value="{{$item->id}}">{{$item->branchName}}</option>
+                            <option {{$current_branch== $item->id?"selected":""}} value="{{$item->id}}">{{$item->branchName}}</option>
                             @endforeach
                         </select>
                         <div class="col-sm-2 text-right">
@@ -205,20 +202,12 @@
                 url:"/dashboard/branch-store",
                 method:"post",
                 data:form_data,
+                datatype :  "text",
                 contentType: false,
                 cache: false,
                 processData: false,
                 success:function (response){
-                    if (response.status == 504){
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'خطأ',
-                            text: response.error,
-                            confirmButtonText:"حسناً"
-                        })
-                    }
-                    else if (response.status == 200) {
-
+                    if (response){
                         Swal.fire({
                             icon: 'success',
                             title: 'تم',
@@ -226,6 +215,15 @@
                             timer: 2000,
                             showCancelButton: false,
                             showConfirmButton: false
+                        })
+                    }
+                    else {
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'خطأ',
+                            text: response.error,
+                            confirmButtonText:"حسناً"
                         })
 
                     }

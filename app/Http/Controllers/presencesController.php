@@ -7,26 +7,20 @@ use App\Models\Employee;
 use App\Models\Presence;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
+
 class presencesController extends Controller
 {
 
-
     public function create(Request $request)
     {
-        $mac = exec('getmac');
-        $substr_mac = substr($mac,0,17);
+        $branch_id = $request->cookie('branch_id');
 
-        $branch = Branch::where('mac_address',$substr_mac)->first();
-
-        $branch_id =null;
-        if (!is_null($branch)){
-        $branch_id = $branch->id;
-        }
         $presence = Presence::whereDate('created_at', Carbon::today())->OrderBy("id", 'desc')
             ->whereIn('branch_id',[$branch_id])->limit(20)->get();
 
@@ -39,11 +33,9 @@ class presencesController extends Controller
 
     public function store(Request $request)
     {
-       $mac = exec('getmac');
-        $substr_mac = substr($mac,0,17);
 
         $validator = Validator::make(
-            array_merge($request->all(), ['mac_address' => $substr_mac]),
+            $request->all(),
             $this->rules(),
             $this->messages()
         );
@@ -51,9 +43,10 @@ class presencesController extends Controller
             return response()->json(['status' => false, 'data_validator' => $validator->messages()]);
         }
 
-        $exist = Employee::where('EMP_ID', $request->input('employee_id'))->get();
 
-        if ($exist->isEmpty()) {
+        $exist = \Http::get('http://globaldentaldata.com/api/check_exists_emp/'.$request->input('employee_id'));
+        $exist =json_decode($exist);
+        if (!$exist) {
             return response()->json(['status' => 504, 'error' => 'الرقم الوظيفي غير مسجل لدينا']);
         }
 
@@ -120,7 +113,7 @@ class presencesController extends Controller
             'status.required' => 'الحالة مطلوبة',
             'required.required' => ' الفرع مطلوب',
             'image.required' => 'تأكد من تشغيل الكاميرا على المتصفح',
-            'mac_address.exists'=> 'الجهاز غير مسجل لدينا'
+            'branch_id.exists'=> 'الجهاز غير مسجل لدينا'
         ];
     }
 
@@ -129,19 +122,26 @@ class presencesController extends Controller
         return $rules = [
             'employee_id' => 'required|min:9',
             'status' => 'required',
-            'branch_id' => 'required',
+            'branch_id' => 'exists:branch,id',
             'image' => 'required',
-            'mac_address'=>'exists:branch'
         ];
     }
 
     public function presencesList(Request $request)
     {
-        $presences = Presence::OrderBy('id','desc')->where([]);
-        if ($request->has('employee_id'))
-        $presences = $presences->where('employee_id', 'like', '%' . $request->input('employee_id') . '%');
 
-        $data['presences'] = $presences->paginate(10);
+
+        $presences = Presence::OrderBy('id','desc')->where([]);
+        if ($request->has('employee_id')){
+        $presences = $presences->where('employee_id', 'like', '%' . $request->input('employee_id') . '%');
+            $data['presences'] = $presences->paginate(20);
+            return view('paginate_list', $data)->render();
+        }
+        $employees = Http::get("http://globaldentaldata.com/api/get_all_employee/global_secret");
+        $employees = json_decode($employees);
+
+        $data['presences'] = $presences->paginate(20);
+        $data['employees']= $employees;
         return view('presences-list', $data);
     }
 }

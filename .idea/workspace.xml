@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="d86bffda-3bd4-4a8d-972a-c402d2c31652" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/EmployeeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/EmployeeController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/presencesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/presencesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/presences-list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/presences-list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,15 +154,15 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\Presences\public\assets\js" />
+      <recent name="C:\xampp\htdocs\Presences\public\assets\css" />
+      <recent name="C:\xampp\htdocs\Presences\public\assets\images" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\Presences\public\assets\js" />
       <recent name="C:\xampp\htdocs\Presences\resources\views" />
       <recent name="C:\xampp\htdocs\Presences\public\assets" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\Presences\public\assets\css" />
-      <recent name="C:\xampp\htdocs\Presences\public\assets\js" />
-      <recent name="C:\xampp\htdocs\Presences\public\assets\images" />
     </key>
   </component>
   <component name="RunManager">
@@ -189,7 +192,14 @@
       <workItem from="1622624078958" duration="1035000" />
       <workItem from="1622968459863" duration="611000" />
       <workItem from="1622969236736" duration="1292000" />
-      <workItem from="1623055039507" duration="7632000" />
+      <workItem from="1623055039507" duration="9076000" />
+      <workItem from="1623157747439" duration="1941000" />
+      <workItem from="1623183733246" duration="871000" />
+      <workItem from="1623227957225" duration="7781000" />
+      <workItem from="1623239596764" duration="6153000" />
+      <workItem from="1623257583513" duration="531000" />
+      <workItem from="1623313474315" duration="2382000" />
+      <workItem from="1623319543894" duration="5699000" />
     </task>
     <servers />
   </component>
@@ -205,18 +215,18 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="357" y="29" key="#Options/0.0.1366.738@0.0.1366.738" timestamp="1622969902698" />
-    <state x="463" y="124" key="FileChooserDialogImpl" timestamp="1622969232990">
+    <state x="463" y="124" key="FileChooserDialogImpl" timestamp="1623315877284">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="463" y="124" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1622969232990" />
+    <state x="463" y="124" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1623315877284" />
     <state x="472" y="76" key="NewPhpClassDialog" timestamp="1622283605397">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="472" y="76" key="NewPhpClassDialog/0.0.1366.738@0.0.1366.738" timestamp="1622283605397" />
-    <state x="517" y="288" key="NewPhpFileDialog" timestamp="1622283616191">
+    <state x="517" y="288" key="NewPhpFileDialog" timestamp="1623245627941">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="517" y="288" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" timestamp="1622283616191" />
+    <state x="517" y="288" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" timestamp="1623245627941" />
     <state x="391" y="86" width="583" height="566" key="find.popup" timestamp="1622283493990">
       <screen x="0" y="0" width="1366" height="738" />
     </state>

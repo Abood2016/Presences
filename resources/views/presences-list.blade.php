@@ -10,11 +10,14 @@
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/sweetalert.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/index.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/select2.min.css')}}">
 
     <title>سجل الحضور</title>
     <style>
 
-
+        .select2-container[dir="rtl"] .select2-selection--single .select2-selection__rendered{
+            text-align: right;
+        }
     </style>
 </head>
 
@@ -46,21 +49,23 @@
 
         <div class="container mt-4">
             <div class="form-group col-sm-6 row ">
-                <label for="" class="col-sm-12 row" style="margin-right: 0.01em">
-                    <span class="mr-1">
+                <div  class="col-sm-12 row" style="margin-right: 0.01em">
+                    <span class="mr-1" style="font-size: 1.2em;font-weight: 600">
                         ابحث عن موظف
                     </span>
-                    <form class="col-sm-12 row mt-2" action="" method="GET">
-                        <div class="form-group col-sm-12 row">
-                        <input name="employee_id" class="form-control col-sm-12 mt-2" type="text"
-                            value="{{app('request')->get('employee_id')}}" placeholder="ادخل رقم الموظف">
-                        </div>
-                        <div>
-                            <input type="submit" class="btn btn-success" value="بحث عن موظف">
-                            <a type="submit" href="{{route('presences.index')}}"  class="btn btn-danger ">إلغاء</a>
-                        </div>
+                    <form class="col-sm-12 row mt-2" id="search_form" method="GET">
+                     @csrf
+                        <input type="text" name="test" value="test" style="display: none">
+                        <label class="col-sm-12">
+                            <select name="employee_id" class="js-example-basic-single form-control">
+                                <option value=""></option>
+                                @foreach($employees as $row)
+                                <option class="text-right" value="{{$row->EMP_ID}}">{{$row->EMP_NAME}}</option>
+                                @endforeach
+                            </select>
+                        </label>
                     </form>
-                </label>
+                </div>
             </div>
 
 
@@ -98,8 +103,9 @@
                                 <td>
 
                                 <td class="text-right">
-                                    <a href="{{asset('storage/').'/' .$row->image}}" target="_blank"><img width="130px"
+                                    <a href="{{asset('storage/').'/' .$row->image}}" target="_blank"><img alt="image" width="130px"
                                             style="border-radius: 30px" src="{{ asset('storage/' . $row->image) }}">
+                                    </a>
                                 </td>
 
                             </tr>
@@ -125,14 +131,36 @@
     <script src="{{asset('assets/js/jquery.min.js')}}"></script>
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets/js/sweetalert.js')}}"></script>
+    <script src="{{asset('assets/js/select2.min.js')}}"></script>
+    <script>
+        $.ajaxSetup({
+            headers:{
+                'X-CSRF-TOKEN':$('meta[name=csrf-token]').attr('content')
+            }
+        })
+    </script>
     <script>
         $(document).ready(function (){
-          $(document).on('click','.btn_submit',function (event){
-            var form_id = document.getElementById('form_submit');
-            var form_data = new FormData(form_id);
-
-
-        })
+            $('.js-example-basic-single').select2();
+            $.ajaxSetup({
+                headers:{
+                    'X-CSRF-TOKEN':$('meta[name=csrf-token]').attr('content')
+                }
+            })
+            $(document).on('change','.js-example-basic-single',function (){
+               var emp_id = $("[name=employee_id]").val();
+                $.ajax({
+                    type:'get',
+                    url:"/dashboard/test",
+                    data: {'employee_id':emp_id},
+                    contentType: false,
+                    dataType:'html',
+                    success:function (response){
+                          $('.table-box').html="";
+                          $('.table-box').html(response)
+                    },
+                })
+            })
     });
 
     </script>
