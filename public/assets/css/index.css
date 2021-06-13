@@ -14,6 +14,14 @@ body{
     font-family: cairo;
     font-weight: 300;
 
+}.ui-datepicker-prev span {
+     background-image: url('../images/prev.png') !important;
+     background-position: 0px 0px !important;
+ }
+
+.ui-datepicker-next span {
+    background-image: url('../images/next.png') !important;
+    background-position: 0px 0px !important;
 }
 .image{
     height: 250px;
@@ -64,17 +72,17 @@ body{
 ::-webkit-scrollbar {
     width: 10px;
   }
-  
+
   /* Track */
   ::-webkit-scrollbar-track {
     background: #f1f1f1;
   }
-  
+
   /* Handle */
   ::-webkit-scrollbar-thumb {
     background: #888;
   }
-  
+
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #555;

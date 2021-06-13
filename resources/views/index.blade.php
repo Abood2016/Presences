@@ -147,11 +147,9 @@
             var form_data = new FormData(form_id);
           var image ="";
             Webcam.snap(function (data_uri){
-
-               image = data_uri
+                 image = data_uri
                 form_data.append("image",data_uri)
             })
-
 
             $.ajax({
                 url:"/add-presences",
@@ -179,8 +177,6 @@
                         });
                     }
                     else if (data.status ==200) {
-
-
 
                         Swal.fire({
                             icon: 'success',
@@ -242,6 +238,7 @@
                                     cache: false,
                                     processData: false,
                                     success:function (data){
+                                        console.log(data)
                                         if (data.status==false){
                                             var errorMessage = "";
                                             for (const error in data["data_validator"]) {

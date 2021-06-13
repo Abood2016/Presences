@@ -12,13 +12,9 @@
     <link rel="stylesheet" href="{{asset('assets/css/index.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/select2.min.css')}}">
 
+    <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"  rel = "stylesheet">
     <title>سجل الحضور</title>
-    <style>
 
-        .select2-container[dir="rtl"] .select2-selection--single .select2-selection__rendered{
-            text-align: right;
-        }
-    </style>
 </head>
 
 <body>
@@ -48,7 +44,7 @@
     <main class="mt-4">
 
         <div class="container mt-4">
-            <div class="form-group col-sm-6 row ">
+            <div class="form-group col-sm-12 row ">
                 <div  class="col-sm-12 row" style="margin-right: 0.01em">
                     <span class="mr-1" style="font-size: 1.2em;font-weight: 600">
                         ابحث عن موظف
@@ -56,7 +52,7 @@
                     <form class="col-sm-12 row mt-2" id="search_form" method="GET">
                      @csrf
                         <input type="text" name="test" value="test" style="display: none">
-                        <label class="col-sm-12">
+                        <label class="col-sm-6">
                             <select name="employee_id" class="js-example-basic-single form-control">
                                 <option value=""></option>
                                 @foreach($employees as $row)
@@ -64,6 +60,10 @@
                                 @endforeach
                             </select>
                         </label>
+                        <p class="col-sm-6 d-flex flex-row"> <span class="ml-3 mt-1"> من</span>
+                            <input name="start_date" type="text" id="startdate" class="datepicker form-control start-date">
+                            <span class="ml-3 mr-3 mt-1"> الى</span>
+                            <input name="end_date" type = "text" id = "end-date" class="datepicker form-control"></p>
                     </form>
                 </div>
             </div>
@@ -84,29 +84,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($presences as $row)
+                            @foreach($precenses as $row)
 
                             <tr>
                                 <th class="text-right" scope="row">{{$loop->iteration}}</th>
-                                <th class="text-right" scope="row">{{$row->employee_id}}</th>
-                                <th class="text-right" scope="row">{{$row->status}}</th>
-                                <td class="text-right">{{ $row->created_at->format('y-m-d') }}</td>
+                                <th class="text-right" scope="row">{{$row->EMP_NAME}}</th>
 
-                                <th class="text-right" scope="row">
-                                    @if ($row->status == 'C/In')
-                                    <span class="badge badge-success">تسجيل دخول</span>
-                                    @else
-                                    <span class="badge badge-primary">تسجيل خروج</span>
-                                    @endif
-                                </th>
-                                <td class="text-right">{{ $row->created_at->format('y-m-d') }}
-                                <td>
+                                <td class="text-right">{{ $row->created_at}}</td>
 
-                                <td class="text-right">
-                                    <a href="{{asset('storage/').'/' .$row->image}}" target="_blank"><img alt="image" width="130px"
-                                            style="border-radius: 30px" src="{{ asset('storage/' . $row->image) }}">
-                                    </a>
-                                </td>
 
                             </tr>
                             @endforeach
@@ -115,7 +100,7 @@
                     </table>
                     <div class="col-sm-12  d-flex justify-content-center">
 
-                        {{ $presences->links() }}
+
                     </div>
                 </div>
             </div>
@@ -132,6 +117,29 @@
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets/js/sweetalert.js')}}"></script>
     <script src="{{asset('assets/js/select2.min.js')}}"></script>
+    <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            $("#startdate").datepicker({
+                dateFormat: "dd/mm/yy",
+                maxDate: 0,
+                onSelect: function (date) {
+                    var dt2 = $('#end-date');
+                    var startDate = $(this).datepicker('getDate');
+                    var minDate = $(this).datepicker('getDate');
+                    if (dt2.datepicker('getDate') == null){
+                        dt2.datepicker('setDate', minDate);
+                    }
+                    //dt2.datepicker('option', 'maxDate', '0');
+                    dt2.datepicker('option', 'minDate', minDate);
+                }
+            });
+            $('#end-date').datepicker({
+                dateFormat: "dd/mm/yy",
+                maxDate: 0
+            });
+        });
+    </script>
     <script>
         $.ajaxSetup({
             headers:{
@@ -151,7 +159,7 @@
                var emp_id = $("[name=employee_id]").val();
                 $.ajax({
                     type:'get',
-                    url:"/dashboard/test",
+                    url:"/dashboard",
                     data: {'employee_id':emp_id},
                     contentType: false,
                     dataType:'html',
@@ -161,10 +169,52 @@
                     },
                 })
             })
+
+
     });
 
     </script>
+<script>
+    $('#startdate').datepicker().on('change', function (ev) {
+        let emp_id = $("[name=employee_id]").val();
+        let start_data= $(this).val();
+        let end_date = $("#end-date").val();
+        $.ajax({
+            type:'get',
+            url:"/dashboard",
+            data: {'employee_id':emp_id
+                ,'start_date':start_data,
+                'end_date':end_date,
+            },
+            contentType: false,
+            dataType:'html',
+            success:function (response){
+                $('.table-box').html="";
+                $('.table-box').html(response)
+            },
+        })
+    });
 
+        $('#end-date').datepicker().on('change', function (ev) {
+            let emp_id = $("[name=employee_id]").val();
+            let start_data= $("#startdate").val();
+            let end_date = $("#end-date").val();
+            $.ajax({
+                type:'get',
+                url:"/dashboard",
+                data: {'employee_id':emp_id
+                    ,'start_date':start_data,
+                    'end_date':end_date,
+                },
+                contentType: false,
+                dataType:'html',
+                success:function (response){
+                    $('.table-box').html="";
+                    $('.table-box').html(response)
+                },
+            })
+        });
+</script>
 </body>
 
 </html>

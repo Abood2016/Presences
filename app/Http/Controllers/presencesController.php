@@ -34,33 +34,33 @@ class presencesController extends Controller
     public function store(Request $request)
     {
 
-        $validator = Validator::make(
-            $request->all(),
-            $this->rules(),
-            $this->messages()
-        );
-        if ($validator->fails()) {
-            return response()->json(['status' => false, 'data_validator' => $validator->messages()]);
-        }
+           $validator = Validator::make(
+                    $request->all(),
+                    $this->rules(),
+                    $this->messages()
+                );
+                if ($validator->fails()) {
+                    return response()->json(['status' => false, 'data_validator' => $validator->messages()]);
+                }
 
+        /*
+                   $exist = \Http::get('http://globaldentaldata.com/api/check_exists_emp/'.$request->input('employee_id'));
+                   $exist =json_decode($exist);
+                   if (!$exist) {
+                       return response()->json(['status' => 504, 'error' => 'الرقم الوظيفي غير مسجل لدينا']);
+                   }
 
-        $exist = \Http::get('http://globaldentaldata.com/api/check_exists_emp/'.$request->input('employee_id'));
-        $exist =json_decode($exist);
-        if (!$exist) {
-            return response()->json(['status' => 504, 'error' => 'الرقم الوظيفي غير مسجل لدينا']);
-        }
+                   //to check if employee already registerd
+                   $duplicate = Presence::where('employee_id', $request->input('employee_id'))->whereDate('created_at', Carbon::today())->get();
+                   $count = $duplicate->count();
 
-        //to check if employee already registerd
-        $duplicate = Presence::where('employee_id', $request->input('employee_id'))->where('status', $request->input('status'))->whereDate('created_at', Carbon::today())->get();
-        $count = $duplicate->count();
-
-        if ($count > 0) {
-            return response()->json(['status' => 504, 'error' => 'لقد قمت بالتسجيل مسبقا']);
-        }
+                   if ($count > 0) {
+                       return response()->json(['status' => 504, 'error' => 'لقد قمت بالتسجيل مسبقا']);
+                   }*/
 
         //to check if employee still in work yet
 
-        if ($request->input('status') == "C/Out") {
+     /*   if ($request->input('status') == "C/Out") {
             $hourNow = Carbon::now()->format('H');
             $test_status = Presence::where('employee_id', $request->input('employee_id'))->where('status', "C/In")->whereDate('created_at', Carbon::today())->first();
 
@@ -80,7 +80,7 @@ class presencesController extends Controller
             }
 
 
-        }
+        }*/
 
         $data = $request->input("image");
         $image_64 = $data; //your base64 encoded data
@@ -93,22 +93,36 @@ class presencesController extends Controller
         $imageName = time() . '.' . $extension;
         Storage::disk('public')->put($imageName, base64_decode($image));
 
-        $presence = new Presence();
+         $status = Http::get('http://globaldentaldata.com/api/store_attend/global_store',[
+            'employee_id'=>$request->input('employee_id'),
+            'branch_id'=>$request->input('branch_id'),
+            'created_at'=>Carbon::now()->setTimezone('Asia/Gaza')->format('Y-m-d H:i:s'),
+            'image'=>$imageName,
+            'status'=>$request->input('status')
+           ]);
+         $response = json_decode($status);
+        if ($response->status == 200){
+            return response()->json(['status' => 200, 'success' => $response->success]);
+        }
+        else{
+            return response()->json(['status' => 504, 'error' => $response->error]);
+        }
+
+/*   $presence = new Presence();
         $presence->employee_id = $request->input('employee_id');
         $presence->status = $request->input('status');
         $presence->image = $imageName;
         $presence->branch_id = $request->input('branch_id');
         $presence->created_at = Carbon::now()->setTimezone('Asia/Gaza');
+        $presence->save();*/
 
-        $presence->save();
-        return response()->json(['status' => 200, 'success' => 'تمت العملية']);
+     //   return response()->json(['status' => 200, 'success' => 'تمت العملية']);
     }
 
     public function messages()
     {
         return   $messages = [
             'employee_id.required' => 'الرقم الوظيفي مطلوب',
-
             "employee_id.min" => 'الرقم الوظيفي غير صحيح الرجاءالتأكد من الرقم',
             'status.required' => 'الحالة مطلوبة',
             'required.required' => ' الفرع مطلوب',
@@ -129,18 +143,20 @@ class presencesController extends Controller
 
     public function presencesList(Request $request)
     {
-
-
-        $presences = Presence::OrderBy('id','desc')->where([]);
-        if ($request->has('employee_id')){
-        $presences = $presences->where('employee_id', 'like', '%' . $request->input('employee_id') . '%');
-            $data['presences'] = $presences->paginate(20);
-            return view('paginate_list', $data)->render();
-        }
+        $precenses=collect();
         $employees = Http::get("http://globaldentaldata.com/api/get_all_employee/global_secret");
         $employees = json_decode($employees);
+        if ($request->has('employee_id') ){
+            $precenses =  Http::get("http://globaldentaldata.com/api/filter_attend/global_filter_attend",[
+                'employee_id'=>$request->input('employee_id'),
+                'start_date'=> $request->input("start_date"),
+                'end_date'=>$request->input("end_date")
+            ]);
+        $data['precenses']= json_decode($precenses);
 
-        $data['presences'] = $presences->paginate(20);
+        return view('paginate_list',$data)->render();
+        }
+        $data['precenses']= $precenses;
         $data['employees']= $employees;
         return view('presences-list', $data);
     }
