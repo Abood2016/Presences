@@ -31,6 +31,7 @@
             <td class="text-right">
                 <a href="{{asset('storage/').'/'.$row->image }}" target="_blank"><img width="130px"
                                                                                       style="border-radius: 30px" src="{{ asset('storage/'.$row->image  ) }}">
+                </a>
             </td>
 
         </tr>
