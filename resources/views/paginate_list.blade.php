@@ -1,3 +1,5 @@
+<?php
+$day = ["Sunday"=>'الأحد','Monday'=>'الاثنين','Wednesday'=>"الأربعاء", 'Thursday'=>'الخميس','Saturday'=>'السبت','Tuesday'=>'الثلاثاء'];?>
 <table class="table table-striped" id="emp_table">
     <thead>
     <tr>
@@ -22,20 +24,15 @@
             <th class="text-right" scope="row">{{$loop->iteration}}</th>
             <th class="text-right" scope="row">{{$row->employdd_id}}</th>
             <td class="text-right">
-                {{ date("h:i",strtotime($row->att_date))}}
+                {{ date("Y-m-d",strtotime($row->att_date))}}
             </td>
             <td class="text-right">
-                <?php
-                $day =
-                ["Sunday"=>'الأحد','Monday'=>'الاثنين','Wednesday'=>"الأربعاء",
-                    'Thursday'=>'الخميس','Saturday'=>'السبت','Tuesday'=>'الثلاثاء'];
-
-                ?>
 
                 {{ $day[date("l",strtotime($row->att_date))]}}
             </td>
+
             <td class="text-right">
-                {{ date("Y-m-d",strtotime($row->att_date))}}
+                {{ date("h:i",strtotime($row->att_date))}}
             </td>
             <td class="text-right" scope="row">
                 @if ($row->status == 'C/In')
