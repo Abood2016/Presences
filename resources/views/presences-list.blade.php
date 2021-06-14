@@ -90,7 +90,7 @@
                                 <th class="text-right" scope="row">{{$loop->iteration}}</th>
                                 <th class="text-right" scope="row">{{$row->EMP_NAME}}</th>
 
-                                <td class="text-right">{{ $row->created_at}}</td>
+                                <td class="text-right">{{ date("h:i",strtotime($row->created_at))}}</td>
 
 
                             </tr>
@@ -103,6 +103,12 @@
 
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="container-box conatiner-fluid" style="display: none">
+            <div class="row justify-content-center" style="margin-top: 20%">
+
+                <div class="lds-dual-ring"></div>
             </div>
         </div>
 
@@ -156,11 +162,16 @@
                 }
             })
             $(document).on('change','.js-example-basic-single',function (){
-               var emp_id = $("[name=employee_id]").val();
+                let emp_id = $("[name=employee_id]").val();
+                let start_data= $(this).val();
+                let end_date = $("#end-date").val();
                 $.ajax({
                     type:'get',
                     url:"/dashboard",
-                    data: {'employee_id':emp_id},
+                    data: {'employee_id':emp_id
+                        ,'start_date':start_data,
+                        'end_date':end_date,
+                    },
                     contentType: false,
                     dataType:'html',
                     success:function (response){
@@ -215,6 +226,16 @@
             })
         });
 </script>
+    <script>
+        $(document).ajaxSend(function(event, request, settings) {
+            $('.container-box').show();
+        });
+
+        $(document).ajaxComplete(function(event, request, settings) {
+
+            $('.container-box').hide();
+        });
+    </script>
 </body>
 
 </html>

@@ -98,12 +98,12 @@
 
                             <tr>
                                 <th class="text-right" scope="row">{{$loop->iteration}}</th>
-                                <th class="text-right" scope="row">{{$row->employee_id}}</th>
+                                <th class="text-right" scope="row">{{$row->employdd_id}}</th>
                                 <td class="text-right"><span
                                         class="{{$row->status=="C/In"?"badge badge-success":"badge badge-primary"}}">
                                         {{$row->status=="C/In"?"تسجيل دخول":"تسجيل خروج"}}
                                     </span> </td>
-                                <td class="text-right">{{ $row->created_at->format('h:i') }}
+                                <td class="text-right">{{ date("h:i",strtotime($row->att_date)) }}
                                 </td>
 
                             </tr>

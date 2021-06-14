@@ -21,9 +21,11 @@ class presencesController extends Controller
     {
         $branch_id = $request->cookie('branch_id');
 
-        $presence = Presence::whereDate('created_at', Carbon::today())->OrderBy("id", 'desc')
-            ->whereIn('branch_id',[$branch_id])->limit(20)->get();
-
+$presence = Http::get('http://globaldentaldata.com/api/filter_attend/global_get_attend',[
+    'branch_id'=>$branch_id,
+    'date'=>Carbon::today()->format('Y-m-d')
+]);
+    $presence = json_decode($presence);
         if ($request->ajax()) {
             return view('paginate', compact('presence','branch_id'))->render();
         }

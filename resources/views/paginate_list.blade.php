@@ -16,8 +16,9 @@
         <tr>
             <th class="text-right" scope="row">{{$loop->iteration}}</th>
             <th class="text-right" scope="row">{{$row->employdd_id}}</th>
-            <td class="text-right">{{ $row->att_date }}</td>
-
+            <td class="text-right">
+                {{ date("h:i",strtotime($row->att_date))}}
+            </td>
             <th class="text-right" scope="row">
                 @if ($row->status == 'C/In')
                     <span class="badge badge-success">تسجيل دخول</span>
