@@ -145,6 +145,7 @@ $presence = Http::get('http://globaldentaldata.com/api/filter_attend/global_get_
 
     public function presencesList(Request $request)
     {
+        setLocale(LC_ALL , 'ar_EG.UTF-8');
         $precenses=collect();
         $employees = Http::get("http://globaldentaldata.com/api/get_all_employee/global_secret");
         $employees = json_decode($employees);

@@ -52,8 +52,8 @@
                     <form class="col-sm-12 row mt-2" id="search_form" method="GET">
                      @csrf
                         <input type="text" name="test" value="test" style="display: none">
-                        <label class="col-sm-6">
-                            <select name="employee_id" class="js-example-basic-single form-control">
+                        <label class="col-sm-6 mt-1">
+                            <select name="employee_id" class="js-example-basic-single select form-control">
                                 <option value=""></option>
                                 @foreach($employees as $row)
                                 <option class="text-right" value="{{$row->EMP_ID}}">{{$row->EMP_NAME}}</option>
@@ -63,7 +63,10 @@
                         <p class="col-sm-6 d-flex flex-row"> <span class="ml-3 mt-1"> من</span>
                             <input name="start_date" type="text" id="startdate" class="datepicker form-control start-date">
                             <span class="ml-3 mr-3 mt-1"> الى</span>
-                            <input name="end_date" type = "text" id = "end-date" class="datepicker form-control"></p>
+                            <input name="end_date" type = "text" id = "end-date" class="datepicker form-control">
+
+                            <buttton class="btn btn-sm btn-success btn-submit mr-3">بحث</buttton>
+                        </p>
                     </form>
                 </div>
             </div>
@@ -74,14 +77,16 @@
                 <div class="col-sm-12 mr-3 border table-box">
                     <table class="table table-striped" id="emp_table">
                         <thead>
-                            <tr>
-                                <th class="text-right" scope="col">#</th>
-                                <th class="text-right" scope="col">الرقم الوظيفي</th>
-                                <th class="text-right" scope="col">الحالة</th>
-                                <th class="text-right" scope="col">تاريخ التسجيل</th>
-                                <th class="text-right" scope="col">الصورة</th>
+                        <tr>
+                            <th class="text-right" scope="col">#</th>
+                            <th class="text-right" scope="col">الرقم الوظيفي</th>
+                            <th class="text-right" scope="col">وقت التسجيل</th>
+                            <th class="text-right" scope="col">تاريخ التسجيل</th>
+                            <th class="text-right" scope="col">الحالة</th>
+                            <th class="text-right" scope="col">الفرع</th>
+                            <th class="text-right" scope="col">الصورة</th>
 
-                            </tr>
+                        </tr>
                         </thead>
                         <tbody>
                             @foreach($precenses as $row)
@@ -127,7 +132,7 @@
     <script>
         $(function() {
             $("#startdate").datepicker({
-                dateFormat: "dd/mm/yy",
+                dateFormat: "yy-mm-dd",
                 maxDate: 0,
                 onSelect: function (date) {
                     var dt2 = $('#end-date');
@@ -141,7 +146,7 @@
                 }
             });
             $('#end-date').datepicker({
-                dateFormat: "dd/mm/yy",
+                dateFormat: "yy-mm-dd",
                 maxDate: 0
             });
         });
@@ -161,9 +166,9 @@
                     'X-CSRF-TOKEN':$('meta[name=csrf-token]').attr('content')
                 }
             })
-            $(document).on('change','.js-example-basic-single',function (){
+            $(document).on('click','.btn-submit',function (){
                 let emp_id = $("[name=employee_id]").val();
-                let start_data= $(this).val();
+                let start_data= $("#startdate").val();
                 let end_date = $("#end-date").val();
                 $.ajax({
                     type:'get',
@@ -175,64 +180,20 @@
                     contentType: false,
                     dataType:'html',
                     success:function (response){
-                          $('.table-box').html="";
-                          $('.table-box').html(response)
+                        $('.table-box').html="";
+                        $('.table-box').html(response)
                     },
                 })
             })
-
-
-    });
+     });
 
     </script>
-<script>
-    $('#startdate').datepicker().on('change', function (ev) {
-        let emp_id = $("[name=employee_id]").val();
-        let start_data= $(this).val();
-        let end_date = $("#end-date").val();
-        $.ajax({
-            type:'get',
-            url:"/dashboard",
-            data: {'employee_id':emp_id
-                ,'start_date':start_data,
-                'end_date':end_date,
-            },
-            contentType: false,
-            dataType:'html',
-            success:function (response){
-                $('.table-box').html="";
-                $('.table-box').html(response)
-            },
-        })
-    });
-
-        $('#end-date').datepicker().on('change', function (ev) {
-            let emp_id = $("[name=employee_id]").val();
-            let start_data= $("#startdate").val();
-            let end_date = $("#end-date").val();
-            $.ajax({
-                type:'get',
-                url:"/dashboard",
-                data: {'employee_id':emp_id
-                    ,'start_date':start_data,
-                    'end_date':end_date,
-                },
-                contentType: false,
-                dataType:'html',
-                success:function (response){
-                    $('.table-box').html="";
-                    $('.table-box').html(response)
-                },
-            })
-        });
-</script>
-    <script>
+<   <script>
         $(document).ajaxSend(function(event, request, settings) {
             $('.container-box').show();
         });
 
         $(document).ajaxComplete(function(event, request, settings) {
-
             $('.container-box').hide();
         });
     </script>
