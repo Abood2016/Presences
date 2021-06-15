@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d86bffda-3bd4-4a8d-972a-c402d2c31652" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/paginate_list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/paginate_list.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,7 +198,9 @@
       <workItem from="1623346605972" duration="619000" />
       <workItem from="1623487448977" duration="12399000" />
       <workItem from="1623573625559" duration="14223000" />
-      <workItem from="1623661135549" duration="9888000" />
+      <workItem from="1623661135549" duration="10352000" />
+      <workItem from="1623746932752" duration="128000" />
+      <workItem from="1623756826171" duration="1825000" />
     </task>
     <servers />
   </component>
