@@ -16,138 +16,140 @@
 </head>
 
 <body>
-    <!-- Image and text -->
-    <header>
-        <nav class="navbar navbar-light" style="background-color: black;">
-            <a class="navbar-brand" href="{{url('/')}}">
-                <img src="{{asset('assets/images/logo.jpeg')}}" width="150" height="50" class="d-inline-block align-top"
-                    alt="">
-            </a>
+<!-- Image and text -->
+<header>
+    <nav class="navbar navbar-light" style="background-color: black;">
+        <a class="navbar-brand" href="{{url('/')}}">
+            <img src="{{asset('assets/images/logo.jpeg')}}" width="150" height="50" class="d-inline-block align-top"
+                 alt="">
+        </a>
 
-        </nav>
-    </header>
-    <main>
-        <div class="container" style="margin-top: 1em">
-            <div class="row justify-content-center">
-                <div id="MyClockDisplay" class="clock" onload="showTime()"></div>
+    </nav>
+</header>
+<main>
+    <div class="container" style="margin-top: 1em">
+        <div class="row justify-content-center">
+            <div id="MyClockDisplay" class="clock" onload="showTime()"></div>
 
-            </div>
         </div>
-        <div class="container" style="margin-top: 1em">
-            <div class="row justify-content-center">
-                <div id="myDay" class="clock" onload="showDate()"></div>
-            </div>
+    </div>
+    <div class="container" style="margin-top: 1em">
+        <div class="row justify-content-center">
+            <div id="myDay" class="clock" onload="showDate()"></div>
         </div>
-        <div class="container mt-3">
-            <div class="row justify-content-around">
-                <div class="col-sm-5 row mr-3 ml-1 border" style="">
-                    <form action="" class="col-sm-12 row mt-3" id="form_submit" enctype="multipart/form-data">
-                        <input type="hidden" name="_token" value="{{csrf_token()}}">
-                        <div class="form-group col-sm-12 row">
-                            <label for="" class="col-sm-12 row" style="margin-right: 0.01em">
+    </div>
+    <div class="container mt-3">
+        <div class="row justify-content-around">
+            <div class="col-sm-5 row mr-3 ml-1 border" style="">
+                <form action="" class="col-sm-12 row mt-3" id="form_submit" enctype="multipart/form-data">
+                    <input type="hidden" name="_token" value="{{csrf_token()}}">
+                    <div class="form-group col-sm-12 row">
+                        <label for="" class="col-sm-12 row" style="margin-right: 0.01em">
                                 <span class="mr-1">
                                     الرقم الوظيفي :
                                 </span>
-                                <input name="employee_id" class="form-control col-sm-12 mt-2" type="text"
-                                    placeholder="ادخل الرقم الوظيفي">
+                            <input id="employee_id" name="employee_id" class="form-control col-sm-12 mt-2" type="text"
+                                   placeholder="ادخل الرقم الوظيفي">
+                        </label>
+                    </div>
+                    <div class="form-group row col-sm-12">
+                        <div class=" col-sm-6 text-right">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                تسجيل دخول
                             </label>
+                            <input class="form-check-input mr-1 mt-2" checked name="status" value="C/In"
+                                   type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                         </div>
-                        <div class="form-group row col-sm-12">
-                            <div class=" col-sm-6 text-right">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    تسجيل دخول
-                                </label>
-                                <input class="form-check-input mr-1 mt-2" checked name="status" value="C/In"
-                                    type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            </div>
-                            <div class="col-sm-6 text-right">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    تسجيل خروج
-                                </label>
-                                <input class="form-check-input mr-1 mt-2" name="status" value="C/Out" type="radio"
-                                    name="flexRadioDefault" id="flexRadioDefault2">
-                            </div>
-
-
-                            <div id="camera" style="display: none"></div>
-                            <div id="result" style=""></div>
-
-
+                        <div class="col-sm-6 text-right">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                تسجيل خروج
+                            </label>
+                            <input class="form-check-input mr-1 mt-2" name="status" value="C/Out" type="radio"
+                                   name="flexRadioDefault" id="flexRadioDefault2">
                         </div>
-                        <input style="display: none" type="text" value="{{$branch_id}}" name="branch_id">
-                        <div class="row w-100 justify-content-center">
-                            <div>
-                                <button type="button" class="btn btn-primary btn_submit">تسجيل</button>
-                            </div>
+
+
+                        <div id="camera" style="display: none"></div>
+                        <div id="result" style=""></div>
+
+
+                    </div>
+                    <input style="display: none" type="text" value="{{$branch_id}}" name="branch_id">
+                    <div class="row w-100 justify-content-center">
+                        <div>
+                            <button type="button" class="btn btn-primary btn_submit">تسجيل</button>
                         </div>
-                    </form>
-                </div>
-                <div class="col-sm-6 mr-3 border table-box" style="overflow-y:scroll ;height:50vh!important;">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th class="text-right" scope="col">#</th>
-                                <th class="text-right" scope="col">الرقم الوظيفي</th>
-                                <th class="text-right" scope="col">الحالة</th>
-                                <th class="text-right" scope="col">الوقت</th>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-6 mr-3 border table-box" style="overflow-y:scroll ;height:50vh!important;">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="text-right" scope="col">#</th>
+                        <th class="text-right" scope="col">الرقم الوظيفي</th>
+                        <th class="text-right" scope="col">الحالة</th>
+                        <th class="text-right" scope="col">الوقت</th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($presence as $row)
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($presence as $row)
 
-                            <tr>
-                                <th class="text-right" scope="row">{{$loop->iteration}}</th>
-                                <th class="text-right" scope="row">{{$row->employee_id}}</th>
-                                <td class="text-right"><span
-                                        class="{{$row->status=="C/In"?"badge badge-success":"badge badge-primary"}}">
+                        <tr>
+                            <th class="text-right" scope="row">{{$loop->iteration}}</th>
+                            <th class="text-right" scope="row">{{$row->employee_id}}</th>
+                            <td class="text-right"><span
+                                    class="{{$row->status=="C/In"?"badge badge-success":"badge badge-primary"}}">
                                         {{$row->status=="C/In"?"تسجيل دخول":"تسجيل خروج"}}
                                     </span> </td>
-                                <td class="text-right">{{ date("h:i",strtotime($row->att_date)) }}
-                                </td>
+                            <td class="text-right">{{ date("h:i",strtotime($row->att_date)) }}
+                            </td>
 
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
 
-        <div class="container-box conatiner-fluid">
-            <div class="row justify-content-center" style="margin-top: 20%">
+    <div class="container-box conatiner-fluid">
+        <div class="row justify-content-center" style="margin-top: 20%">
 
-                <div class="lds-dual-ring"></div>
-            </div>
+            <div class="lds-dual-ring"></div>
         </div>
+    </div>
 
-    </main>
-    <script src="{{asset('assets/js/webcam.min.js')}}"></script>
+</main>
+<script src="{{asset('assets/js/webcam.min.js')}}"></script>
 
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="{{asset('assets/js/jquery.min.js')}}"></script>
-    <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('assets/js/sweetalert.js')}}"></script>
-    <script>
-        $(document).ready(function (){
-        Webcam.set({
-            width:350,
-            height:350,
-            image_format:'jpeg',
-            jpeg_quality:90
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{{asset('assets/js/jquery.min.js')}}"></script>
+<script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('assets/js/sweetalert.js')}}"></script>
+<script>
+    $(document).ready(function (){
+        $(document).on('keyup','#employee_id',function (){
+            Webcam.set({
+                width:350,
+                height:350,
+                image_format:'jpeg',
+                jpeg_quality:90
+            })
+            Webcam.attach("#camera")
         })
-        Webcam.attach("#camera")
 
         /*   */
         $(document).on('click','.btn_submit',function (event){
             var form_id = document.getElementById('form_submit');
             var form_data = new FormData(form_id);
-          var image ="";
+            var image ="";
             Webcam.snap(function (data_uri){
-                 image = data_uri
+                image = data_uri
                 form_data.append("image",data_uri)
             })
 
@@ -189,20 +191,9 @@
                             showCancelButton: false,
                             showConfirmButton: false
                         })
-
                         setTimeout(function (){
-                            $("#form_submit").trigger('reset');
-                        $("#image").html('')
-                        },5000)
-                        $.ajax({
-                            url:"/",
-                            method:'get',
-                            data:{"_token":'{{csrf_token()}}'},
-                            success:function (response){
-                            $('.table-box').html="";
-                            $('.table-box').html(response)
-                            }
-                        })
+                            window.location="/"
+                        },3000)
                     }
                     else if(data.status ==504){
                         Swal.fire({
@@ -228,8 +219,8 @@
                             cancelButtonText:'الغاء'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                              form_data.append('comming_out',true)
-                              form_data.append('_token','{{csrf_token()}}')
+                                form_data.append('comming_out',true)
+                                form_data.append('_token','{{csrf_token()}}')
                                 $.ajax({
                                     url:"/add-presences",
                                     method:"post",
@@ -272,18 +263,8 @@
                                             })
 
                                             setTimeout(function (){
-                                                $("#form_submit").trigger('reset');
-                                                $("#image").html('')
-                                            },5000)
-                                            $.ajax({
-                                                url:"/",
-                                                method:'get',
-                                                data:{"_token":'{{csrf_token()}}'},
-                                                success:function (response){
-                                                    $('.table-box').html="";
-                                                    $('.table-box').html(response)
-                                                }
-                                            })
+                                                window.location="/"
+                                            },3000)
                                         }
 
                                     }
@@ -302,13 +283,13 @@
         });
     })
     setTimeout(function (){
-    $('.container-box').fadeOut();
+        $('.container-box').fadeOut();
 
     },2000)
 
-    </script>
-    <script>
-        function showTime(){
+</script>
+<script>
+    function showTime(){
 
         var date = new Date();
         var h = date.getHours(); // 0 - 23
@@ -339,7 +320,7 @@
 
     showTime();
     function showDate(){
-    var days = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+        var days = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
         let now = new Date();
 
 
@@ -362,7 +343,7 @@
 
     }
     showDate()
-    </script>
+</script>
 </body>
 
 </html>
