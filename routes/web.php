@@ -32,6 +32,7 @@ Route::post( '/employee-store',   [EmployeeController::class, 'store'])->name('e
 Route::post('/branch-store',   [EmployeeController::class, 'storeBranchToUser'])->name('branch.store')->middleware('auth');
 Route::get('/',   [presencesController::class, 'presencesList'])->name('presences.index')->middleware('auth');
 Route::get('/test',[presencesController::class, 'presencesList']);
+Route::post('/presence/delete',[presencesController::class,'delete_presences']);
 });
 
 Route::get('/login',   [LoginController::class, 'index'])->name('login');

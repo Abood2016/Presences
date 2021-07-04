@@ -145,22 +145,45 @@ $presence = Http::get('http://globaldentaldata.com/api/filter_attend/global_get_
 
     public function presencesList(Request $request)
     {
+        $branch = \Http::get("http://globaldentaldata.com/api/get_branches");
+        $branch_all= collect( json_decode($branch));
+
         setLocale(LC_ALL , 'ar_EG.UTF-8');
         $precenses=collect();
         $employees = Http::get("http://globaldentaldata.com/api/get_all_employee/global_secret");
         $employees = json_decode($employees);
-        if ($request->has('employee_id') ){
+        if ($request->ajax() ){
+
             $precenses =  Http::get("http://globaldentaldata.com/api/filter_attend/global_filter_attend",[
                 'employee_id'=>$request->input('employee_id'),
                 'start_date'=> $request->input("start_date"),
-                'end_date'=>$request->input("end_date")
+                'end_date'=>$request->input("end_date"),
+                'branch_id'=>$request->input("branch_id")
             ]);
         $data['precenses']= json_decode($precenses);
 
         return view('paginate_list',$data)->render();
         }
+        $data['branches']=$branch_all;
         $data['precenses']= $precenses;
         $data['employees']= $employees;
         return view('presences-list', $data);
+    }
+    public function delete_presences(Request $request){
+
+        $request->validate(['items'=>'required'],[
+            'items.required'=>'لم يتم تحديد اي حقل'
+        ]);
+        $ids = explode(',',$request->input('items'));
+
+        $precenses =  Http::get("http://globaldentaldata.com/api/delete_attend/del_att",[
+            'attend_ids'=>$ids,
+        ]);
+  $precenses= json_decode($precenses);
+
+  if ($precenses->status == 200){
+    return response()->json(['status'=>200]);
+  }
+
     }
 }

@@ -1,6 +1,6 @@
 <?php
 $day = ["Sunday"=>'الأحد','Monday'=>'الاثنين','Wednesday'=>"الأربعاء", 'Thursday'=>'الخميس','Saturday'=>'السبت','Tuesday'=>'الثلاثاء'];?>
-<table class="table table-striped" id="emp_table">
+<table class="table table-striped table-bordered" id="emp_table">
     <thead>
     <tr>
         <th class="text-right" scope="col">#</th>
@@ -11,7 +11,7 @@ $day = ["Sunday"=>'الأحد','Monday'=>'الاثنين','Wednesday'=>"الأر
         <th class="text-right" scope="col">الحالة</th>
         <th class="text-right" scope="col">الفرع</th>
         <th class="text-right" scope="col">الصورة</th>
-
+        <th class="text-center" scope="col" >حذف</th>
     </tr>
     </thead>
     <tbody>
@@ -44,11 +44,15 @@ $day = ["Sunday"=>'الأحد','Monday'=>'الاثنين','Wednesday'=>"الأر
             <td class="text-right">
                 {{$row->branchName}}
             </td>
-            <td>
             <td class="text-right">
                 <a href="{{asset('storage/').'/'.$row->image }}" target="_blank"><img width="130px"
                                                                                       style="border-radius: 30px" src="{{ asset('storage/'.$row->image  ) }}">
                 </a>
+            </td>
+            <td class="text-center">
+
+                    <input class="form-check" type="checkbox" name="row_id[]" value="{{$row->id}}">
+
             </td>
 
         </tr>
