@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d86bffda-3bd4-4a8d-972a-c402d2c31652" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Presences.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Presences.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/presencesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/presencesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/paginate_list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/paginate_list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/presences-list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/presences-list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/paginate.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/paginate.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,7 +206,9 @@
       <workItem from="1623832834563" duration="4082000" />
       <workItem from="1623843459531" duration="1687000" />
       <workItem from="1623919983015" duration="217000" />
-      <workItem from="1625388870526" duration="13179000" />
+      <workItem from="1625388870526" duration="13393000" />
+      <workItem from="1625404923485" duration="2339000" />
+      <workItem from="1625474099065" duration="1190000" />
     </task>
     <servers />
   </component>

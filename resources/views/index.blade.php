@@ -133,15 +133,13 @@
 <script src="{{asset('assets/js/sweetalert.js')}}"></script>
 <script>
     $(document).ready(function (){
-        $(document).on('keyup','#employee_id',function (){
-            Webcam.set({
-                width:350,
-                height:350,
-                image_format:'jpeg',
-                jpeg_quality:90
-            })
-            Webcam.attach("#camera")
+        Webcam.set({
+            width:350,
+            height:350,
+            image_format:'jpeg',
+            jpeg_quality:90
         })
+        Webcam.attach("#camera")
 
         /*   */
         $(document).on('click','.btn_submit',function (event){
