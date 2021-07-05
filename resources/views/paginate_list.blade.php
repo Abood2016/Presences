@@ -45,8 +45,8 @@ $day = ["Sunday"=>'الأحد','Monday'=>'الاثنين','Wednesday'=>"الأر
                 {{$row->branchName}}
             </td>
             <td class="text-right">
-                <a href="{{asset('storage/').'/'.$row->image }}" target="_blank"><img width="130px"
-                                                                                      style="border-radius: 30px" src="{{ asset('storage/'.$row->image  ) }}">
+                <a href="{{asset('public/storage/').'/'.$row->image }}" target="_blank"><img width="130px"
+                                                                                      style="border-radius: 30px" src="{{ asset('public/storage/'.$row->image  ) }}">
                 </a>
             </td>
             <td class="text-center">
